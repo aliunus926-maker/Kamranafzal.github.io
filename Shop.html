@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop All Mountain Products | Karakorum Harvest</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- STICKY HEADER -->
+  <header class="site-header inner-page">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="2"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+        <span class="nav-logo-text">Karakorum Harvest</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link active">Shop</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-icon-btn" aria-label="Shopping Cart">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-badge">0</span>
+        </a>
+        <a href="https://wa.me/923001234567" class="btn btn-whatsapp" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" target="_blank">Order Now</a>
+        <div class="nav-toggle" aria-label="Toggle Menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <main style="padding-top: 6rem; padding-bottom: 5rem;">
+    <div class="container">
+      <div style="margin-bottom: 2rem;">
+        <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">Home > Shop</p>
+        <h1 style="font-size: 2.25rem;">All Products</h1>
+        <p style="color: var(--color-text-muted);">12 premium handpicked products straight from Skardu orchards & apiaries</p>
+      </div>
+
+      <!-- FILTER CONTROLS -->
+      <div class="shop-controls">
+        <div class="search-bar-wrap">
+          <input type="text" id="searchInput" placeholder="Search by name, Urdu (e.g. Badam, Akhrot), or keyword...">
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-category="all">All</button>
+          <button class="filter-tab" data-category="nuts">Nuts</button>
+          <button class="filter-tab" data-category="dried-fruits">Dried Fruits</button>
+          <button class="filter-tab" data-category="specials">Honey & Specials</button>
+        </div>
+        <div>
+          <select id="sortSelect" style="padding: 0.55rem; border: 1px solid var(--color-border); border-radius: var(--radius-btn);">
+            <option value="default">Default Sorting</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name-asc">Name: A to Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- PRODUCT GRID -->
+      <div class="product-grid" id="catalogGrid">
+        <!-- Rendered via JS -->
+      </div>
+      <div id="noResultsMsg" style="display: none; text-align: center; padding: 4rem 1rem; color: var(--color-text-muted);">
+        <h3>No products found matching your search.</h3>
+        <p>Try searching for general keywords like "almond", "khubani", or "honey".</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/923001234567" target="_blank" class="floating-wa" aria-label="Order on WhatsApp">
+    <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.17 12.05 20.17C10.58 20.17 9.17 19.78 7.94 19.05L7.65 18.88L4.51 19.7L5.35 16.63L5.15 16.32C4.35 15.05 3.8 13.5 3.8 11.91C3.8 7.37 7.51 3.67 12.05 3.67M9.27 7.42C9.1 7.42 8.84 7.48 8.61 7.73C8.38 7.97 7.74 8.58 7.74 9.81C7.74 11.04 8.64 12.22 8.76 12.39C8.89 12.56 10.5 15.06 12.97 16.12C15.03 17 15.45 16.83 15.9 16.79C16.36 16.75 17.38 16.18 17.59 15.59C17.8 15 17.8 14.5 17.74 14.39C17.68 14.29 17.5 14.23 17.25 14.11C17 13.99 15.75 13.37 15.52 13.29C15.29 13.2 15.12 13.16 14.95 13.41C14.78 13.65 14.31 14.23 14.16 14.39C14.02 14.56 13.88 14.58 13.62 14.46C13.37 14.33 12.56 14.07 11.6 13.21C10.85 12.54 10.34 11.72 10.2 11.47C10.05 11.22 10.18 11.09 10.31 10.96C10.42 10.85 10.56 10.66 10.68 10.51C10.81 10.37 10.85 10.26 10.93 10.1C11.01 9.93 10.97 9.79 10.91 9.66C10.85 9.54 10.38 8.39 10.18 7.91C9.99 7.44 9.79 7.51 9.64 7.5L9.27 7.42Z"/></svg>
+  </a>
+
+  <!-- SCRIPTS -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let activeCategory = 'all';
+    let searchQuery = '';
+    let sortMode = 'default';
+
+    function renderCatalog() {
+      const catalogGrid = document.getElementById('catalogGrid');
+      const noResultsMsg = document.getElementById('noResultsMsg');
+
+      let filtered = products.filter(p => {
+        const matchesCategory = activeCategory === 'all' || p.category === activeCategory;
+        const matchesSearch = !searchQuery || 
+          p.name.toLowerCase().includes(searchQuery) ||
+          p.nameUrdu.toLowerCase().includes(searchQuery) ||
+          p.keywords.some(k => k.toLowerCase().includes(searchQuery));
+        return matchesCategory && matchesSearch;
+      });
+
+      if (sortMode === 'price-asc') {
+        filtered.sort((a, b) => a.pricePerKg - b.pricePerKg);
+      } else if (sortMode === 'price-desc') {
+        filtered.sort((a, b) => b.pricePerKg - a.pricePerKg);
+      } else if (sortMode === 'name-asc') {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      if (filtered.length === 0) {
+        catalogGrid.innerHTML = '';
+        noResultsMsg.style.display = 'block';
+      } else {
+        noResultsMsg.style.display = 'none';
+        catalogGrid.innerHTML = filtered.map(createProductCardHTML).join('');
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim().toLowerCase();
+      renderCatalog();
+    });
+
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeCategory = tab.dataset.category;
+        renderCatalog();
+      });
+    });
+
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      sortMode = e.target.value;
+      renderCatalog();
+    });
+
+    renderCatalog();
+  </script>
+</body>
+</html>

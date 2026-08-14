@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Shopping Cart | Karakorum Harvest</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- STICKY HEADER -->
+  <header class="site-header inner-page">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="2"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+        <span class="nav-logo-text">Karakorum Harvest</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-icon-btn" aria-label="Shopping Cart">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-badge">0</span>
+        </a>
+        <a href="https://wa.me/923001234567" class="btn btn-whatsapp" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" target="_blank">Order Now</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CART CONTAINER -->
+  <main style="padding-top: 6rem; padding-bottom: 5rem;">
+    <div class="container">
+      <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem;">Shopping Cart</h1>
+
+      <div id="cartContentWrap">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
+  </main>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1.35rem;">Complete WhatsApp Order</h3>
+        <button type="button" style="font-size: 1.5rem;" onclick="closeCheckoutModal()">×</button>
+      </div>
+      <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)">
+        <div class="form-group">
+          <label for="custName">Full Name *</label>
+          <input type="text" id="custName" required placeholder="e.g. Ali Khan">
+        </div>
+        <div class="form-group">
+          <label for="custPhone">WhatsApp Phone Number *</label>
+          <input type="tel" id="custPhone" required placeholder="e.g. 03001234567">
+        </div>
+        <div class="form-group">
+          <label for="custCity">City *</label>
+          <input type="text" id="custCity" required placeholder="e.g. Lahore, Karachi, Islamabad">
+        </div>
+        <div class="form-group">
+          <label for="custAddress">Complete Street Address *</label>
+          <textarea id="custAddress" rows="2" required placeholder="House#, Street#, Area..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="custNotes">Order Notes (Optional)</label>
+          <input type="text" id="custNotes" placeholder="Special delivery instructions">
+        </div>
+        <button type="submit" class="btn btn-whatsapp" style="width: 100%; margin-top: 0.5rem; padding: 0.85rem;">
+          Send Order via WhatsApp →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    function renderCartPage() {
+      const container = document.getElementById('cartContentWrap');
+      const items = window.cartManager.getCartItems();
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 4rem 1rem; background: var(--color-surface); border-radius: var(--radius-card); border: 1px solid var(--color-border);">
+            <div style="font-size: 3.5rem; margin-bottom: 1rem;">🛒</div>
+            <h2>Your cart is empty</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">Explore our mountain harvest from Skardu and add your favorites.</p>
+            <a href="shop.html" class="btn btn-primary">Start Shopping →</a>
+          </div>
+        `;
+        return;
+      }
+
+      let rowsHTML = items.map(item => `
+        <tr>
+          <td>
+            <strong>${item.name}</strong> <span style="color: var(--color-dark); font-size: 0.85rem;">(${item.nameUrdu})</span><br>
+            <span style="font-size: 0.82rem; color: var(--color-text-muted);">Weight: ${item.weightLabel}</span>
+          </td>
+          <td>Rs. ${item.linePrice.toLocaleString()}</td>
+          <td>
+            <div class="qty-control">
+              <button class="qty-btn" onclick="window.cartManager.updateQuantity(${item.id}, ${item.weight}, -1); renderCartPage();">−</button>
+              <span class="qty-number">${item.quantity}</span>
+              <button class="qty-btn" onclick="window.cartManager.updateQuantity(${item.id}, ${item.weight}, 1); renderCartPage();">+</button>
+            </div>
+          </td>
+          <td><strong>Rs. ${(item.linePrice * item.quantity).toLocaleString()}</strong></td>
+          <td>
+            <button onclick="window.cartManager.removeFromCart(${item.id}, ${item.weight}); renderCartPage();" style="color: var(--color-danger); font-size: 1.25rem;">×</button>
+          </td>
+        </tr>
+      `).join('');
+
+      container.innerHTML = `
+        <div class="cart-table-wrap">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHTML}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cart-summary-box">
+          <h3 style="margin-bottom: 1rem;">Order Summary</h3>
+          <div class="cart-summary-row">
+            <span>Subtotal:</span>
+            <span>Rs. ${window.cartManager.getCartTotal().toLocaleString()}</span>
+          </div>
+          <div class="cart-summary-row" style="font-size: 0.85rem; color: var(--color-text-muted);">
+            <span>Delivery:</span>
+            <span>Calculated at checkout</span>
+          </div>
+          <div class="cart-summary-row cart-summary-total">
+            <span>Total:</span>
+            <span>Rs. ${window.cartManager.getCartTotal().toLocaleString()}</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem;">
+            <button class="btn btn-whatsapp" onclick="openCheckoutModal()">Checkout via WhatsApp</button>
+            <a href="shop.html" class="btn btn-secondary">Continue Shopping</a>
+          </div>
+        </div>
+      `;
+    }
+
+    function openCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('active');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.remove('active');
+    }
+
+    function handleCheckoutSubmit(e) {
+      e.preventDefault();
+      const customerData = {
+        name: document.getElementById('custName').value.trim(),
+        phone: document.getElementById('custPhone').value.trim(),
+        city: document.getElementById('custCity').value.trim(),
+        address: document.getElementById('custAddress').value.trim(),
+        notes: document.getElementById('custNotes').value.trim()
+      };
+
+      const waUrl = window.cartManager.buildCheckoutWhatsAppUrl(customerData);
+      window.open(waUrl, '_blank');
+      window.cartManager.clearCart();
+      closeCheckoutModal();
+      renderCartPage();
+    }
+
+    renderCartPage();
+  </script>
+</body>
+</html>
